@@ -72,10 +72,19 @@ if (isset($_GET['detalle'])) {
     die();
 } else if (isset($_GET['editarUsuario'])) {
     $idusuario = $_GET['id'];
-    $sql = mysqli_query($conexion, "SELECT * FROM usuario WHERE idusuario = $idusuario");
+    $sql = mysqli_query($conexion, "SELECT * FROM usuarios WHERE id = $idusuario"); 
     $data = mysqli_fetch_array($sql);
     echo json_encode($data);
     exit;
+
+    } else if (isset($_GET['editarSalas'])) {
+    $id = $_GET['id'];
+    $sql = mysqli_query($conexion, "SELECT * FROM salas WHERE id = $id"); 
+    $data = mysqli_fetch_array($sql);
+    echo json_encode($data);
+    exit;
+
+
 } else if (isset($_GET['editarProducto'])) {
     $id = $_GET['id'];
     $sql = mysqli_query($conexion, "SELECT * FROM platos WHERE id = $id");

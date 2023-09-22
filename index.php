@@ -59,12 +59,12 @@ if (!empty($_SESSION['active'])) {
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Sistemas</b>FREE</a>
+    <img src="assets/img/coffe2.png"> 
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Inicia Sesión</p>
 
       <form action="" method="post" autocomplete="off">
       <?php echo (isset($alert)) ? $alert : '' ; ?>  
@@ -87,7 +87,7 @@ if (!empty($_SESSION['active'])) {
         <div class="row">
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block">iniciar sesión</button>
           </div>
           <!-- /.col -->
         </div>

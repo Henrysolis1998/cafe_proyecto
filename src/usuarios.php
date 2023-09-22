@@ -107,7 +107,7 @@ include "includes/header.php";
                             <option>Seleccionar</option>
                             <option value="1">Administrador</option>
                             <option value="2">Cocinero</option>
-                            <option value="3">Mozo</option>
+                            <option value="3">Mesero</option>
                         </select>
                     </div>
 

@@ -347,6 +347,30 @@ function editarPlato(id) {
     });
 }
 
+function editarSalas(id) {
+    const action = "editarSalas";
+    $.ajax({
+        url: 'ajax.php',
+        type: 'GET',
+        async: true,
+        data: {
+            editarSalas: action,
+            id: id
+        },
+        success: function (response) {
+            const datos = JSON.parse(response);
+            $('#nombre').val(datos.nombre);
+            $('#mesa').val(datos.mesa);
+            $('#id').val(datos.id);
+            $('#btnAccion').val('Modificar');
+        },
+        error: function (error) {
+            console.log(error);
+
+        }
+    });
+}
+
 function limpiar() {
     $('#formulario')[0].reset();
     $('#id').val('');

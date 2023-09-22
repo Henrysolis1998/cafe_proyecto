@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-05-2023 a las 22:11:41
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.2.0
+-- Tiempo de generación: 22-09-2023 a las 20:01:58
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,7 @@ CREATE TABLE `config` (
 --
 
 INSERT INTO `config` (`id`, `nombre`, `telefono`, `email`, `direccion`, `mensaje`) VALUES
-(1, 'Restaurante RestoBar', '957847894', 'restobar@gmail.com', 'Lima - Perú', 'Gracias por la compra');
+(1, 'HENRY', '50868724', 'henryquexel@gmail.com', '4av 4-40', 'Gracias por la compra');
 
 -- --------------------------------------------------------
 
@@ -62,13 +62,15 @@ CREATE TABLE `detalle_pedidos` (
 --
 
 INSERT INTO `detalle_pedidos` (`id`, `nombre`, `precio`, `cantidad`, `id_pedido`) VALUES
-(1, 'AJI DE GALLINA', '10.00', 1, 1),
-(2, 'CEBICHE', '25.00', 1, 1),
-(3, 'ARROZ CON POLLO', '8.00', 3, 1),
-(4, 'CEBICHE', '25.00', 1, 2),
-(5, 'ARROZ CON POLLO', '8.00', 1, 2),
-(6, 'AJI DE GALLINA', '10.00', 1, 3),
-(7, 'CEBICHE', '25.00', 1, 4);
+(1, 'AJI DE GALLINA', 10.00, 1, 1),
+(2, 'CEBICHE', 25.00, 1, 1),
+(3, 'ARROZ CON POLLO', 8.00, 3, 1),
+(4, 'CEBICHE', 25.00, 1, 2),
+(5, 'ARROZ CON POLLO', 8.00, 1, 2),
+(6, 'AJI DE GALLINA', 10.00, 1, 3),
+(7, 'CEBICHE', 25.00, 1, 4),
+(8, 'AJI DE GALLINA', 10.00, 1, 5),
+(9, 'ARROZ CON POLLO', 8.00, 1, 7);
 
 -- --------------------------------------------------------
 
@@ -92,10 +94,12 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `id_sala`, `num_mesa`, `fecha`, `total`, `observacion`, `estado`, `id_usuario`) VALUES
-(1, 1, 1, '2023-05-25 20:03:27', '59.00', '', 'FINALIZADO', 1),
-(2, 3, 3, '2023-05-25 20:03:43', '33.00', '', 'FINALIZADO', 1),
-(3, 3, 5, '2023-05-25 20:04:17', '10.00', '', 'FINALIZADO', 1),
-(4, 2, 10, '2023-05-25 20:03:11', '25.00', '', 'PENDIENTE', 1);
+(1, 1, 1, '2023-05-25 20:03:27', 59.00, '', 'FINALIZADO', 1),
+(2, 3, 3, '2023-05-25 20:03:43', 33.00, '', 'FINALIZADO', 1),
+(3, 3, 5, '2023-05-25 20:04:17', 10.00, '', 'FINALIZADO', 1),
+(4, 2, 1, '2023-08-24 22:53:46', 25.00, '', 'FINALIZADO', 1),
+(5, 1, 1, '2023-08-24 22:34:27', 10.00, '', 'FINALIZADO', 5),
+(7, 1, 1, '2023-09-18 22:08:01', 8.00, '', 'FINALIZADO', 1);
 
 -- --------------------------------------------------------
 
@@ -117,9 +121,10 @@ CREATE TABLE `platos` (
 --
 
 INSERT INTO `platos` (`id`, `nombre`, `precio`, `imagen`, `fecha`, `estado`) VALUES
-(1, 'AJI DE GALLINA', '10.00', '', NULL, 1),
-(2, 'CEBICHE', '25.00', '', NULL, 1),
-(3, 'ARROZ CON POLLO', '8.00', '', NULL, 1);
+(1, 'AJI DE GALLINA', 10.00, '', NULL, 1),
+(2, 'CEBICHE', 25.00, '', NULL, 1),
+(3, 'ARROZ CON POLLO', 8.00, '', NULL, 1),
+(4, 'pollo', 55.00, '', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -139,9 +144,10 @@ CREATE TABLE `salas` (
 --
 
 INSERT INTO `salas` (`id`, `nombre`, `mesas`, `estado`) VALUES
-(1, 'ENTRADA PRINCIPAL', 5, 1),
-(2, 'SEGUNDO PISO', 10, 1),
-(3, 'FRENTE COCINA', 8, 1);
+(1, 'ENTRADA PRINCIPAL', 6, 1),
+(2, 'SEGUNDO PISO', 10, 0),
+(3, 'FRENTE COCINA', 8, 0),
+(4, 'segundo piso', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -177,7 +183,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `pass`, `rol`, `estado`) VALUES
-(1, 'SISTEMAS FREE', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 1, 1);
+(1, 'COFFE HOUSE', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 1, 1),
+(6, 'cocinero', 'cocinero@gmai.com', '209398364a16235aa9df0f44569f8feb', 2, 0),
+(7, 'mesero1', 'mesero1@gmail.com', 'b53cefad465e18b99b9f0325ab27ae14', 3, 1),
+(8, 'cocinero', 'cocinero@gmail.com', '209398364a16235aa9df0f44569f8feb', 2, 1);
 
 --
 -- Índices para tablas volcadas
@@ -241,37 +250,37 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de la tabla `detalle_pedidos`
 --
 ALTER TABLE `detalle_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `platos`
 --
 ALTER TABLE `platos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `salas`
 --
 ALTER TABLE `salas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `temp_pedidos`
 --
 ALTER TABLE `temp_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas

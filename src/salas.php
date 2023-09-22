@@ -124,7 +124,7 @@ include_once "includes/header.php";
                                         <td><?php echo $data['nombre']; ?></td>
                                         <td><?php echo $data['mesas']; ?></td>
                                         <td>
-                                            <a href="#" onclick="editarCliente(<?php echo $data['id']; ?>)" class="btn btn-primary"><i class='fas fa-edit'></i></a>
+                                            <a href="#" onclick="editarSalas(<?php echo $data['id']; ?>)" class="btn btn-primary"><i class='fas fa-edit'></i></a>
                                             <form action="eliminar.php?id=<?php echo $data['id']; ?>&accion=salas" method="post" class="confirmar d-inline">
                                                 <button class="btn btn-danger" type="submit"><i class='fas fa-trash-alt'></i> </button>
                                             </form>

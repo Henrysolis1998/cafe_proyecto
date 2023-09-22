@@ -63,10 +63,10 @@ $(function () {
                                         callback: function (value) {
                                             if (value >= 1000) {
                                                 value /= 1000
-                                                value += 'k'
+                                                value += 'Q'
                                             }
                 
-                                            return '$' + value
+                                            return 'Q' + value
                                         }
                                     }, ticksStyle)
                                 }],

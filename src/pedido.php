@@ -32,7 +32,8 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
 
                                             <div class="bg-gray py-2 px-3 mt-4">
                                                 <h2 class="mb-0">
-                                                    $<?php echo $data['precio']; ?>
+                                                     <!-- /.aqui cambie el simbolo de los platos -->
+                                                    Q<?php echo $data['precio']; ?>
                                                 </h2>
                                             </div>
 
