@@ -19,12 +19,15 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                     </div>';
         } else {
             $nombre = null;
+
             if (!empty($foto['name'])) {
-                $nombre = '../assets/img/platos/' . $fecha . '.jpg';
+                // Utiliza el nombre original del archivo sin modificarlo
+                $nombre = '../assets/img/platos/' . $foto['name'];
             } else if (!empty($foto_actual) && empty($foto['name'])) {
+                // Conserva el nombre de archivo actual si no se proporciona una nueva imagen
                 $nombre = $foto_actual;
             }
-
+            
             if (empty($id)) {
                 $query = mysqli_query($conexion, "SELECT * FROM platos WHERE nombre = '$plato' AND estado = 1");
                 $result = mysqli_fetch_array($query);
