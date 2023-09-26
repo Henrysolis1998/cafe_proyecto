@@ -78,6 +78,8 @@ if (empty($_SESSION['active'])) {
                                 </p>
                             </a>
                         </li>
+
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-pizza-slice"></i>
@@ -103,19 +105,32 @@ if (empty($_SESSION['active'])) {
                                     </li>';
                                 } ?>
                             </ul>
-
                         </li>
 
-                        <?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
-                            echo '<li class="nav-item">
-                                <a href="platos.php" class="nav-link">
+
+                        <?php if ($_SESSION['rol'] == 1 ) {
+                                echo '
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-coffee"></i>
                                     <p>
                                         Platos
+                                        <i class="fas fa-angle-left right"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="platos.php" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Hamburguesas</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>';
-                        } if ($_SESSION['rol'] == 1) {
+                        } ?>
+
+                    
+                    <?php if ($_SESSION['rol'] == 1 ) {
                             echo '<li class="nav-item">
                                 <a href="salas.php" class="nav-link">
                                     <i class="nav-icon fas fa-door-open"></i>
@@ -123,7 +138,10 @@ if (empty($_SESSION['active'])) {
                                         Salas
                                     </p>
                                 </a>
-                            </li>
+                                </li>';
+                            
+                            }  if ($_SESSION['rol'] == 1 ) {
+                                echo '
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-user-cog"></i>
