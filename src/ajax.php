@@ -4,7 +4,7 @@ session_start();
 if (isset($_GET['detalle'])) {
     $id = $_SESSION['idUser'];
     $datos = array();
-    $detalle = mysqli_query($conexion, "SELECT d.*, p.nombre, p.precio, p.imagen FROM temp_pedidos d INNER JOIN baguette p ON d.id_producto = p.id WHERE d.id_usuario = $id");
+    $detalle = mysqli_query($conexion, "SELECT d.*, p.nombre, p.precio, p.imagen FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id");
     while ($row = mysqli_fetch_assoc($detalle)) {
         $data['id'] = $row['id'];
         $data['nombre'] = $row['nombre'];
