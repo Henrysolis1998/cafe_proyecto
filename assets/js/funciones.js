@@ -347,6 +347,12 @@ function editarPlato(id) {
     });
 }
 
+function editarPlato2(id) {
+    // Tu código para editar el plato aquí
+}
+
+
+
 function editarSalas(id) {
     const action = "editarSalas";
     $.ajax({

@@ -19,11 +19,11 @@
         <h2 class="headline text-danger"> 404</h2>
 
         <div class="error-content">
-            <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Page not found.</h3>
+            <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Pagina no encontrada.</h3>
 
             <p>
                 No tienes permisos.
-                <a href="dashboard.php">return to dashboard</a>.
+                <a href="dashboard.php">Volver al panel</a>.
             </p>
         </div>
         <!-- /.error-content -->

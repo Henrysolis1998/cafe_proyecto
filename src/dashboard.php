@@ -10,9 +10,11 @@ $query3 = mysqli_query($conexion, "SELECT COUNT(id) AS total FROM usuarios WHERE
 $totalUsuarios = mysqli_fetch_assoc($query3);
 $query4 = mysqli_query($conexion, "SELECT COUNT(id) AS total FROM pedidos WHERE estado = 1");
 $totalPedidos = mysqli_fetch_assoc($query4);
+$query5 = mysqli_query($conexion, "SELECT COUNT(id) AS total FROM baguette WHERE estado = 1");
+$totalbaguette = mysqli_fetch_assoc($query5);
 
-$query5 = mysqli_query($conexion, "SELECT SUM(total) AS total FROM pedidos");
-$totalVentas = mysqli_fetch_assoc($query5);
+$query6 = mysqli_query($conexion, "SELECT SUM(total) AS total FROM pedidos");
+$totalVentas = mysqli_fetch_assoc($query6);
 ?>
 <div class="card">
     <div class="card-header text-center">

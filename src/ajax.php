@@ -4,7 +4,7 @@ session_start();
 if (isset($_GET['detalle'])) {
     $id = $_SESSION['idUser'];
     $datos = array();
-    $detalle = mysqli_query($conexion, "SELECT d.*, p.nombre, p.precio, p.imagen FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id");
+    $detalle = mysqli_query($conexion, "SELECT d.*, p.nombre, p.precio, p.imagen FROM temp_pedidos d INNER JOIN baguette p ON d.id_producto = p.id WHERE d.id_usuario = $id");
     while ($row = mysqli_fetch_assoc($detalle)) {
         $data['id'] = $row['id'];
         $data['nombre'] = $row['nombre'];
@@ -68,6 +68,7 @@ if (isset($_GET['detalle'])) {
         $msg = array('mensaje' => 'error');
     }
 
+// para editar tablas
     echo json_encode($msg);
     die();
 } else if (isset($_GET['editarUsuario'])) {
@@ -91,6 +92,16 @@ if (isset($_GET['detalle'])) {
     $data = mysqli_fetch_array($sql);
     echo json_encode($data);
     exit;
+    
+
+} else if (isset($_GET['editarProducto2'])) {
+    $id = $_GET['id'];
+    $sql = mysqli_query($conexion, "SELECT * FROM baguette WHERE id = $id");
+    $data = mysqli_fetch_array($sql);
+    echo json_encode($data);
+    exit;
+
+    //finalizar el pedido
 } else if (isset($_GET['finalizarPedido'])) {
     $id_sala = $_GET['id_sala'];
     $id_user = $_SESSION['idUser'];
@@ -107,25 +118,41 @@ if (isset($_GET['detalle'])) {
     echo json_encode($msg);
     die();
 }
+//---esto es para seleccionar el producto desde la sala,mesa,platos 
 if (isset($_POST['regDetalle'])) {
     $id_producto = $_POST['id'];
     $id_user = $_SESSION['idUser'];
+    
+    // Check if the product exists in 'temp_pedidos'
     $consulta = mysqli_query($conexion, "SELECT * FROM temp_pedidos WHERE id_producto = $id_producto AND id_usuario = $id_user");
     $row = mysqli_fetch_assoc($consulta);
+    
     if (empty($row)) {
+        // Product doesn't exist in 'temp_pedidos', so let's fetch its data
         $producto = mysqli_query($conexion, "SELECT * FROM platos WHERE id = $id_producto");
+        
+        // If 'platos' doesn't have the product, try 'baguette'
+        if (mysqli_num_rows($producto) == 0) {
+            $producto = mysqli_query($conexion, "SELECT * FROM baguette WHERE id = $id_producto");
+        }
+        // Fetch the product data and calculate the price
         $result = mysqli_fetch_assoc($producto);
         $precio = $result['precio'];
+
+        // Insert the product into 'temp_pedidos'
         $query = mysqli_query($conexion, "INSERT INTO temp_pedidos (cantidad, precio, id_producto, id_usuario) VALUES (1, $precio, $id_producto, $id_user)");
     } else {
+        // Update the existing product quantity
         $nueva = $row['cantidad'] + 1;
         $query = mysqli_query($conexion, "UPDATE temp_pedidos SET cantidad = $nueva WHERE id_producto = $id_producto AND id_usuario = $id_user");
     }
+
     if ($query) {
         $msg = "registrado";
     } else {
         $msg = "Error al ingresar";
     }
+
     echo json_encode($msg);
     die();
 }

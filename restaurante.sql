@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-09-2023 a las 20:01:58
+-- Tiempo de generación: 28-09-2023 a las 20:56:11
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `restaurante`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `baguette`
+--
+
+CREATE TABLE `baguette` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(200) NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
+  `imagen` varchar(100) DEFAULT NULL,
+  `fecha` timestamp NULL DEFAULT NULL,
+  `estado` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `baguette`
+--
+
+INSERT INTO `baguette` (`id`, `nombre`, `precio`, `imagen`, `fecha`, `estado`) VALUES
+(1, 'AJI DE GALLINA', 10.00, '', NULL, 1),
+(2, 'CEBICHE', 25.00, '', NULL, 1),
+(3, 'ARROZ CON POLLO', 8.00, '', NULL, 1),
+(4, 'pollo', 55.00, '', NULL, 1),
+(5, 'pepian', 15.00, '../assets/img/platos/coffe2.png', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -57,21 +83,6 @@ CREATE TABLE `detalle_pedidos` (
   `id_pedido` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `detalle_pedidos`
---
-
-INSERT INTO `detalle_pedidos` (`id`, `nombre`, `precio`, `cantidad`, `id_pedido`) VALUES
-(1, 'AJI DE GALLINA', 10.00, 1, 1),
-(2, 'CEBICHE', 25.00, 1, 1),
-(3, 'ARROZ CON POLLO', 8.00, 3, 1),
-(4, 'CEBICHE', 25.00, 1, 2),
-(5, 'ARROZ CON POLLO', 8.00, 1, 2),
-(6, 'AJI DE GALLINA', 10.00, 1, 3),
-(7, 'CEBICHE', 25.00, 1, 4),
-(8, 'AJI DE GALLINA', 10.00, 1, 5),
-(9, 'ARROZ CON POLLO', 8.00, 1, 7);
-
 -- --------------------------------------------------------
 
 --
@@ -88,18 +99,6 @@ CREATE TABLE `pedidos` (
   `estado` enum('PENDIENTE','FINALIZADO') NOT NULL DEFAULT 'PENDIENTE',
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `pedidos`
---
-
-INSERT INTO `pedidos` (`id`, `id_sala`, `num_mesa`, `fecha`, `total`, `observacion`, `estado`, `id_usuario`) VALUES
-(1, 1, 1, '2023-05-25 20:03:27', 59.00, '', 'FINALIZADO', 1),
-(2, 3, 3, '2023-05-25 20:03:43', 33.00, '', 'FINALIZADO', 1),
-(3, 3, 5, '2023-05-25 20:04:17', 10.00, '', 'FINALIZADO', 1),
-(4, 2, 1, '2023-08-24 22:53:46', 25.00, '', 'FINALIZADO', 1),
-(5, 1, 1, '2023-08-24 22:34:27', 10.00, '', 'FINALIZADO', 5),
-(7, 1, 1, '2023-09-18 22:08:01', 8.00, '', 'FINALIZADO', 1);
 
 -- --------------------------------------------------------
 
@@ -121,10 +120,8 @@ CREATE TABLE `platos` (
 --
 
 INSERT INTO `platos` (`id`, `nombre`, `precio`, `imagen`, `fecha`, `estado`) VALUES
-(1, 'AJI DE GALLINA', 10.00, '', NULL, 1),
-(2, 'CEBICHE', 25.00, '', NULL, 1),
-(3, 'ARROZ CON POLLO', 8.00, '', NULL, 1),
-(4, 'pollo', 55.00, '', NULL, 1);
+(25, 'papa', 8.00, '../assets/img/platos/coffe2.png', NULL, 1),
+(26, 'doble', 14.00, '../assets/img/platos/coffe2.png', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -193,6 +190,12 @@ INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `pass`, `rol`, `estado`) VALUE
 --
 
 --
+-- Indices de la tabla `baguette`
+--
+ALTER TABLE `baguette`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `config`
 --
 ALTER TABLE `config`
@@ -241,6 +244,12 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `baguette`
+--
+ALTER TABLE `baguette`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `config`
 --
 ALTER TABLE `config`
@@ -250,19 +259,19 @@ ALTER TABLE `config`
 -- AUTO_INCREMENT de la tabla `detalle_pedidos`
 --
 ALTER TABLE `detalle_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `platos`
 --
 ALTER TABLE `platos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `salas`
@@ -274,7 +283,7 @@ ALTER TABLE `salas`
 -- AUTO_INCREMENT de la tabla `temp_pedidos`
 --
 ALTER TABLE `temp_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

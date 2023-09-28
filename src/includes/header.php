@@ -125,6 +125,12 @@ if (empty($_SESSION['active'])) {
                                             <p>Hamburguesas</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="Baguette.php" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Baguette</p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>';
                         } ?>

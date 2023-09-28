@@ -31,7 +31,7 @@ include_once "includes/header.php";
 
                     <div class="bg-gray py-2 px-3 mt-4">
                         <h2 class="mb-0">
-                            $<?php echo $result['total']; ?>
+                            Q<?php echo $result['total']; ?>
                         </h2>
                     </div>
                     <hr>
