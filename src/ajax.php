@@ -1,11 +1,19 @@
 <?php
 require_once "../conexion.php";
 session_start();
+//--- esto me muestra en pedido
 if (isset($_GET['detalle'])) {
     $id = $_SESSION['idUser'];
     $datos = array();
-    $detalle = mysqli_query($conexion, "SELECT d.*, p.nombre, p.precio, p.imagen FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id");
-    while ($row = mysqli_fetch_assoc($detalle)) {
+
+    // Consulta para obtener detalles de platos
+    $platosDetalle = mysqli_query($conexion, "SELECT d.*, p.nombre, p.precio, p.imagen FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id");
+
+    // Consulta para obtener detalles de baguettes
+    $baguettesDetalle = mysqli_query($conexion, "SELECT d.*, b.nombre, b.precio, b.imagen FROM temp_pedidos d INNER JOIN baguette b ON d.id_producto = b.id WHERE d.id_usuario = $id");
+
+    // Recopila los detalles de platos en el arreglo de datos
+    while ($row = mysqli_fetch_assoc($platosDetalle)) {
         $data['id'] = $row['id'];
         $data['nombre'] = $row['nombre'];
         $data['cantidad'] = $row['cantidad'];
@@ -14,9 +22,23 @@ if (isset($_GET['detalle'])) {
         $data['total'] = $data['precio'] * $data['cantidad'];
         array_push($datos, $data);
     }
+
+    // Recopila los detalles de baguettes en el arreglo de datos
+    while ($row = mysqli_fetch_assoc($baguettesDetalle)) {
+        $data['id'] = $row['id'];
+        $data['nombre'] = $row['nombre'];
+        $data['cantidad'] = $row['cantidad'];
+        $data['precio'] = $row['precio'];
+        $data['imagen'] = ($row['imagen'] == null) ? '../assets/img/default.png' : $row['imagen'];
+        $data['total'] = $data['precio'] * $data['cantidad'];
+        array_push($datos, $data);
+    }
+
     echo json_encode($datos);
     die();
-} else if (isset($_GET['delete_detalle'])) {
+}
+
+ else if (isset($_GET['delete_detalle'])) {
     $id_detalle = $_GET['id'];
     $query = mysqli_query($conexion, "DELETE FROM temp_pedidos WHERE id = $id_detalle");
     if ($query) {
@@ -26,38 +48,56 @@ if (isset($_GET['detalle'])) {
     }
     echo $msg;
     die();
-} else if (isset($_GET['detalle_cantidad'])) {
-    $id_detalle = $_GET['id'];
-    $cantidad = $_GET['cantidad'];
-    $query = mysqli_query($conexion, "UPDATE temp_pedidos set cantidad = $cantidad WHERE id = $id_detalle");
-    if ($query) {
-        $msg = "ok";
-    } else {
-        $msg = "Error";
-    }
-    echo $msg;
-    die();
-} else if (isset($_GET['procesarPedido'])) {
+} 
+
+
+
+
+// ------- esta parte del codigo realiza el pedido y la finacilazcion del pedido
+else if (isset($_GET['procesarPedido'])) {
     $id_sala = $_GET['id_sala'];
     $id_user = $_SESSION['idUser'];
     $mesa = $_GET['mesa'];
     $observacion = $_GET['observacion'];
-    $consulta = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+    
+    // Consulta para obtener detalles de platos
+    $consultaPlatos = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+    
+    // Consulta para obtener detalles de baguettes
+    $consultaBaguettes = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN baguette p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+    
     $total = 0;
-    while ($row = mysqli_fetch_assoc($consulta)) {
+    while ($row = mysqli_fetch_assoc($consultaPlatos)) {
         $total += $row['cantidad'] * $row['precio'];
     }
+    
+    while ($row = mysqli_fetch_assoc($consultaBaguettes)) {
+        $total += $row['cantidad'] * $row['precio'];
+    }
+    
     $insertar = mysqli_query($conexion, "INSERT INTO pedidos (id_sala, num_mesa, total, observacion, id_usuario) VALUES ($id_sala, $mesa, '$total', '$observacion', $id_user)");
+    
     $id_pedido = mysqli_insert_id($conexion);
+    
     if ($insertar == 1) {
-        //$insertarDet = 0;
-        $consulta = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
-        while ($dato = mysqli_fetch_assoc($consulta)) {
+        $consultaPlatos = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        
+        $consultaBaguettes = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN baguette p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        
+        while ($dato = mysqli_fetch_assoc($consultaPlatos)) {
             $nombre = $dato['nombre'];
             $cantidad = $dato['cantidad'];
             $precio = $dato['precio'];
             $insertarDet = mysqli_query($conexion, "INSERT INTO detalle_pedidos (nombre, precio, cantidad, id_pedido) VALUES ('$nombre', '$precio', $cantidad, $id_pedido)");
         }
+        
+        while ($dato = mysqli_fetch_assoc($consultaBaguettes)) {
+            $nombre = $dato['nombre'];
+            $cantidad = $dato['cantidad'];
+            $precio = $dato['precio'];
+            $insertarDet = mysqli_query($conexion, "INSERT INTO detalle_pedidos (nombre, precio, cantidad, id_pedido) VALUES ('$nombre', '$precio', $cantidad, $id_pedido)");
+        }
+        
         if ($insertarDet > 0) {
             $eliminar = mysqli_query($conexion, "DELETE FROM temp_pedidos WHERE id_usuario = $id_user");
             $sala = mysqli_query($conexion, "SELECT * FROM salas WHERE id = $id_sala");
@@ -101,7 +141,7 @@ if (isset($_GET['detalle'])) {
     echo json_encode($data);
     exit;
 
-    //finalizar el pedido
+    //----finalizar el pedido
 } else if (isset($_GET['finalizarPedido'])) {
     $id_sala = $_GET['id_sala'];
     $id_user = $_SESSION['idUser'];
@@ -118,7 +158,14 @@ if (isset($_GET['detalle'])) {
     echo json_encode($msg);
     die();
 }
-//---esto es para seleccionar el producto desde la sala,mesa,platos 
+
+
+
+
+
+
+
+//-------------esto es para seleccionar el producto desde la sala,mesa,platos
 if (isset($_POST['regDetalle'])) {
     $id_producto = $_POST['id'];
     $id_user = $_SESSION['idUser'];

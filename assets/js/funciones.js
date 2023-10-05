@@ -348,8 +348,31 @@ function editarPlato(id) {
 }
 
 function editarPlato2(id) {
-    // Tu código para editar el plato aquí
+    const action = "editarProducto2";
+    $.ajax({
+        url: 'ajax.php',
+        type: 'GET',
+        async: true,
+        data: {
+            editarProducto2: action,
+            id: id
+        },
+        success: function (response) {
+            const datos = JSON.parse(response);
+            $('#plato').val(datos.nombre);
+            $('#precio').val(datos.precio);
+            $('#foto_actual').val(datos.foto_actual);
+            $('#id').val(datos.id);
+            $('#btnAccion').val('Modificar');
+        },
+        error: function (error) {
+            console.log(error);
+
+        }
+    });
 }
+
+
 
 
 
