@@ -40,7 +40,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                                 <td><?php echo $row['total']; ?></td>
                                 <td><?php echo $row['nombre']; ?></td>
                                 <td>
-                                    <a href="#" class="btn"><?php echo $estado; ?></a>
+                                <a href="otra_pagina.php" class="btn"><?php echo $estado; ?></a>
                                 </td>
                             </tr>
                         <?php } ?>
