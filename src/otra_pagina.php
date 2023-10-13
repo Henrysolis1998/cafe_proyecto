@@ -3,7 +3,7 @@ session_start();
 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
     require_once "../conexion.php";
     $id_user = $_SESSION['idUser'];
-    $query = mysqli_query($conexion, "SELECT * FROM detalle_pedidos WHERE id_pedido");
+    $query = mysqli_query($conexion, "SELECT dp.id, dp.nombre, dp.precio, dp.cantidad, p.estado AS estado_pedido FROM detalle_pedidos dp INNER JOIN pedidos p ON dp.id_pedido = p.id;");
     include_once "includes/header.php";
 ?>
     <div class="card">
@@ -15,7 +15,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                 <table class="table table-striped" id="tbl">
                     <thead>
                         <tr>
-                            <th>id</th>
+                        <th>id</th>
                             <th>Nombre</th>
                             <th>precio</th>
                             <th>Cantidad</th>
@@ -26,10 +26,11 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                         <?php while ($row = mysqli_fetch_assoc($query)) {
                         ?>
                             <tr>
-                                <td><?php echo $row['id']; ?></td>
+                                 <td><?php echo $row['id']; ?></td>
                                 <td><?php echo $row['nombre']; ?></td>
                                 <td><?php echo $row['precio']; ?></td>
                                 <td><?php echo $row['cantidad']; ?></td>
+                                <td><?php echo $row['estado_pedido']; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
