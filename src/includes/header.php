@@ -131,6 +131,47 @@ if (empty($_SESSION['active'])) {
                                             <p>Baguette</p>
                                         </a>
                                     </li>
+
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="Especialidades.php" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Especialidades de la casa </p>
+                                        </a>
+                                    </li>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="Alitas.php" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Alitas,Pizzas etc.</p>
+                                        </a>
+                                    </li>
+
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="calientes.php" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Bebidas calientes</p>
+                                        </a>
+                                    </li>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="Frias.php" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Bebidas Frias</p>
+                                        </a>
+                                    </li>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="bariadas.php" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Bebidas bariadas</p>
+                                        </a>
+                                    </li>
+
+
                                 </ul>
                             </li>';
                         } ?>
