@@ -150,7 +150,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                                                 <td><?php echo $data['precio']; ?></td>
                                                 <td><img class="img-thumbnail" src="<?php echo ($data['imagen'] == null) ? '../assets/img/default.png' : $data['imagen']; ?>" alt="" width="100"></td>
                                                 <td>
-                                                <a href="#" onclick="editarPlato2(<?php echo $data['id']; ?>)" class="btn btn-primary"><i class='fas fa-edit'></i></a>
+                                                <a href="#" onclick="editarPlato3(<?php echo $data['id']; ?>)" class="btn btn-primary"><i class='fas fa-edit'></i></a>
                                                     <form action="eliminar.php?id=<?php echo $data['id']; ?>&accion=Especialidades" method="post" class="confirmar d-inline">
                                                         <button class="btn btn-danger" type="submit"><i class='fas fa-trash-alt'></i> </button>
                                                     </form>

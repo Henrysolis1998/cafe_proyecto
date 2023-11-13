@@ -373,6 +373,138 @@ function editarPlato2(id) {
 }
 
 
+function editarPlato3(id) {
+    const action = "editarProducto3";
+    $.ajax({
+        url: 'ajax.php',
+        type: 'GET',
+        async: true,
+        data: {
+            editarProducto3: action,
+            id: id
+        },
+        success: function (response) {
+            const datos = JSON.parse(response);
+            $('#plato').val(datos.nombre);
+            $('#precio').val(datos.precio);
+            $('#foto_actual').val(datos.foto_actual);
+            $('#id').val(datos.id);
+            $('#btnAccion').val('Modificar');
+        },
+        error: function (error) {
+            console.log(error);
+
+        }
+    });
+}
+
+function editarPlato4(id) {
+    const action = "editarProducto4";
+    $.ajax({
+        url: 'ajax.php',
+        type: 'GET',
+        async: true,
+        data: {
+            editarProducto4: action,
+            id: id
+        },
+        success: function (response) {
+            const datos = JSON.parse(response);
+            $('#plato').val(datos.nombre);
+            $('#precio').val(datos.precio);
+            $('#foto_actual').val(datos.foto_actual);
+            $('#id').val(datos.id);
+            $('#btnAccion').val('Modificar');
+        },
+        error: function (error) {
+            console.log(error);
+
+        }
+    });
+}
+
+function editarPlato5(id) {
+    const action = "editarProducto5";
+    $.ajax({
+        url: 'ajax.php',
+        type: 'GET',
+        async: true,
+        data: {
+            editarProducto5: action,
+            id: id
+        },
+        success: function (response) {
+            const datos = JSON.parse(response);
+            $('#plato').val(datos.nombre);
+            $('#precio').val(datos.precio);
+            $('#foto_actual').val(datos.foto_actual);
+            $('#id').val(datos.id);
+            $('#btnAccion').val('Modificar');
+        },
+        error: function (error) {
+            console.log(error);
+
+        }
+    });
+}
+
+function editarPlato6(id) {
+    const action = "editarProducto6";
+    $.ajax({
+        url: 'ajax.php',
+        type: 'GET',
+        async: true,
+        data: {
+            editarProducto6: action,
+            id: id
+        },
+        success: function (response) {
+            const datos = JSON.parse(response);
+            $('#plato').val(datos.nombre);
+            $('#precio').val(datos.precio);
+            $('#foto_actual').val(datos.foto_actual);
+            $('#id').val(datos.id);
+            $('#btnAccion').val('Modificar');
+        },
+        error: function (error) {
+            console.log(error);
+
+        }
+    });
+}
+
+
+
+function editarPlato7(id) {
+    const action = "editarProducto7";
+    $.ajax({
+        url: 'ajax.php',
+        type: 'GET',
+        async: true,
+        data: {
+            editarProducto7: action,
+            id: id
+        },
+        success: function (response) {
+            const datos = JSON.parse(response);
+            $('#plato').val(datos.nombre);
+            $('#precio').val(datos.precio);
+            $('#foto_actual').val(datos.foto_actual);
+            $('#id').val(datos.id);
+            $('#btnAccion').val('Modificar');
+        },
+        error: function (error) {
+            console.log(error);
+
+        }
+    });
+}
+
+
+
+
+
+
 
 
 

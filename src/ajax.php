@@ -11,6 +11,13 @@ if (isset($_GET['detalle'])) {
 
     // Consulta para obtener detalles de baguettes
     $baguettesDetalle = mysqli_query($conexion, "SELECT d.*, b.nombre, b.precio, b.imagen FROM temp_pedidos d INNER JOIN baguette b ON d.id_producto = b.id WHERE d.id_usuario = $id");
+    $especialidadesDetalle = mysqli_query($conexion, "SELECT d.*, b.nombre, b.precio, b.imagen FROM temp_pedidos d INNER JOIN especialidades b ON d.id_producto = b.id WHERE d.id_usuario = $id");
+    $calientesDetalle = mysqli_query($conexion, "SELECT d.*, b.nombre, b.precio, b.imagen FROM temp_pedidos d INNER JOIN calientes b ON d.id_producto = b.id WHERE d.id_usuario = $id");
+    $friasDetalle = mysqli_query($conexion, "SELECT d.*, b.nombre, b.precio, b.imagen FROM temp_pedidos d INNER JOIN frias b ON d.id_producto = b.id WHERE d.id_usuario = $id");
+    $bariadasDetalle = mysqli_query($conexion, "SELECT d.*, b.nombre, b.precio, b.imagen FROM temp_pedidos d INNER JOIN bariadas b ON d.id_producto = b.id WHERE d.id_usuario = $id");
+    $alitasDetalle = mysqli_query($conexion, "SELECT d.*, b.nombre, b.precio, b.imagen FROM temp_pedidos d INNER JOIN alitas b ON d.id_producto = b.id WHERE d.id_usuario = $id");
+    
+    
 
     // Recopila los detalles de platos en el arreglo de datos
     while ($row = mysqli_fetch_assoc($platosDetalle)) {
@@ -34,6 +41,59 @@ if (isset($_GET['detalle'])) {
         array_push($datos, $data);
     }
 
+   // Recopila los detalles de baguettes en el arreglo de datos
+   while ($row = mysqli_fetch_assoc($especialidadesDetalle)) {
+    $data['id'] = $row['id'];
+    $data['nombre'] = $row['nombre'];
+    $data['cantidad'] = $row['cantidad'];
+    $data['precio'] = $row['precio'];
+    $data['imagen'] = ($row['imagen'] == null) ? '../assets/img/default.png' : $row['imagen'];
+    $data['total'] = $data['precio'] * $data['cantidad'];
+    array_push($datos, $data);
+}
+   // Recopila los detalles de baguettes en el arreglo de datos
+   while ($row = mysqli_fetch_assoc($calientesDetalle)) {
+    $data['id'] = $row['id'];
+    $data['nombre'] = $row['nombre'];
+    $data['cantidad'] = $row['cantidad'];
+    $data['precio'] = $row['precio'];
+    $data['imagen'] = ($row['imagen'] == null) ? '../assets/img/default.png' : $row['imagen'];
+    $data['total'] = $data['precio'] * $data['cantidad'];
+    array_push($datos, $data);
+}
+
+   // Recopila los detalles de baguettes en el arreglo de datos
+   while ($row = mysqli_fetch_assoc($friasDetalle)) {
+    $data['id'] = $row['id'];
+    $data['nombre'] = $row['nombre'];
+    $data['cantidad'] = $row['cantidad'];
+    $data['precio'] = $row['precio'];
+    $data['imagen'] = ($row['imagen'] == null) ? '../assets/img/default.png' : $row['imagen'];
+    $data['total'] = $data['precio'] * $data['cantidad'];
+    array_push($datos, $data);
+}
+
+   // Recopila los detalles de baguettes en el arreglo de datos
+   while ($row = mysqli_fetch_assoc($bariadasDetalle)) {
+    $data['id'] = $row['id'];
+    $data['nombre'] = $row['nombre'];
+    $data['cantidad'] = $row['cantidad'];
+    $data['precio'] = $row['precio'];
+    $data['imagen'] = ($row['imagen'] == null) ? '../assets/img/default.png' : $row['imagen'];
+    $data['total'] = $data['precio'] * $data['cantidad'];
+    array_push($datos, $data);
+}
+
+   // Recopila los detalles de baguettes en el arreglo de datos
+   while ($row = mysqli_fetch_assoc($alitasDetalle)) {
+    $data['id'] = $row['id'];
+    $data['nombre'] = $row['nombre'];
+    $data['cantidad'] = $row['cantidad'];
+    $data['precio'] = $row['precio'];
+    $data['imagen'] = ($row['imagen'] == null) ? '../assets/img/default.png' : $row['imagen'];
+    $data['total'] = $data['precio'] * $data['cantidad'];
+    array_push($datos, $data);
+}
     echo json_encode($datos);
     die();
 }
@@ -66,12 +126,40 @@ else if (isset($_GET['procesarPedido'])) {
     // Consulta para obtener detalles de baguettes
     $consultaBaguettes = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN baguette p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
     
+    // Consulta para obtener detalles de especialidades
+    $consultaEspecialidades = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN especialidades p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        // Consulta para obtener detalles de calientes
+        $consultaCalientes = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN calientes p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        // Consulta para obtener detalles de frias
+        $consultaFrias = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN frias p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        // Consulta para obtener detalles de bariadas
+        $consultaBariadas = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN bariadas p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        // Consulta para obtener detalles de alitas
+        $consultaAlitas = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN alitas p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+    
+
+
     $total = 0;
     while ($row = mysqli_fetch_assoc($consultaPlatos)) {
         $total += $row['cantidad'] * $row['precio'];
     }
     
     while ($row = mysqli_fetch_assoc($consultaBaguettes)) {
+        $total += $row['cantidad'] * $row['precio'];
+    }
+    while ($row = mysqli_fetch_assoc($consultaEspecialidades)) {
+        $total += $row['cantidad'] * $row['precio'];
+    }
+    while ($row = mysqli_fetch_assoc($consultaCalientes)) {
+        $total += $row['cantidad'] * $row['precio'];
+    }
+    while ($row = mysqli_fetch_assoc($consultaFrias)) {
+        $total += $row['cantidad'] * $row['precio'];
+    }
+    while ($row = mysqli_fetch_assoc($consultaBariadas)) {
+        $total += $row['cantidad'] * $row['precio'];
+    }
+    while ($row = mysqli_fetch_assoc($consultaAlitas)) {
         $total += $row['cantidad'] * $row['precio'];
     }
     
@@ -83,6 +171,10 @@ else if (isset($_GET['procesarPedido'])) {
         $consultaPlatos = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN platos p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
         
         $consultaBaguettes = mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN baguette p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        $consultaEspecialidades= mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN especialidades p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        $consultaCalientes= mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN calientes p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        $consultaFrias= mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN frias p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
+        $consultaAlitas= mysqli_query($conexion, "SELECT d.*, p.nombre FROM temp_pedidos d INNER JOIN alitas p ON d.id_producto = p.id WHERE d.id_usuario = $id_user");
         
         while ($dato = mysqli_fetch_assoc($consultaPlatos)) {
             $nombre = $dato['nombre'];
@@ -92,6 +184,30 @@ else if (isset($_GET['procesarPedido'])) {
         }
         
         while ($dato = mysqli_fetch_assoc($consultaBaguettes)) {
+            $nombre = $dato['nombre'];
+            $cantidad = $dato['cantidad'];
+            $precio = $dato['precio'];
+            $insertarDet = mysqli_query($conexion, "INSERT INTO detalle_pedidos (nombre, precio, cantidad, id_pedido) VALUES ('$nombre', '$precio', $cantidad, $id_pedido)");
+        }
+        while ($dato = mysqli_fetch_assoc($consultaEspecialidades)) {
+            $nombre = $dato['nombre'];
+            $cantidad = $dato['cantidad'];
+            $precio = $dato['precio'];
+            $insertarDet = mysqli_query($conexion, "INSERT INTO detalle_pedidos (nombre, precio, cantidad, id_pedido) VALUES ('$nombre', '$precio', $cantidad, $id_pedido)");
+        }
+        while ($dato = mysqli_fetch_assoc($consultaCalientes)) {
+            $nombre = $dato['nombre'];
+            $cantidad = $dato['cantidad'];
+            $precio = $dato['precio'];
+            $insertarDet = mysqli_query($conexion, "INSERT INTO detalle_pedidos (nombre, precio, cantidad, id_pedido) VALUES ('$nombre', '$precio', $cantidad, $id_pedido)");
+        }
+        while ($dato = mysqli_fetch_assoc($consultaFrias)) {
+            $nombre = $dato['nombre'];
+            $cantidad = $dato['cantidad'];
+            $precio = $dato['precio'];
+            $insertarDet = mysqli_query($conexion, "INSERT INTO detalle_pedidos (nombre, precio, cantidad, id_pedido) VALUES ('$nombre', '$precio', $cantidad, $id_pedido)");
+        }
+        while ($dato = mysqli_fetch_assoc($consultaAlitas)) {
             $nombre = $dato['nombre'];
             $cantidad = $dato['cantidad'];
             $precio = $dato['precio'];
@@ -107,6 +223,13 @@ else if (isset($_GET['procesarPedido'])) {
     } else {
         $msg = array('mensaje' => 'error');
     }
+
+
+
+
+
+
+
 
 // para editar tablas
     echo json_encode($msg);
@@ -182,6 +305,27 @@ if (isset($_POST['regDetalle'])) {
         if (mysqli_num_rows($producto) == 0) {
             $producto = mysqli_query($conexion, "SELECT * FROM baguette WHERE id = $id_producto");
         }
+        if (mysqli_num_rows($producto) == 0) {
+            $producto = mysqli_query($conexion, "SELECT * FROM especialidades WHERE id = $id_producto");
+        }
+        if (mysqli_num_rows($producto) == 0) {
+            $producto = mysqli_query($conexion, "SELECT * FROM calientes WHERE id = $id_producto");
+        }
+        if (mysqli_num_rows($producto) == 0) {
+            $producto = mysqli_query($conexion, "SELECT * FROM frias WHERE id = $id_producto");
+        }
+        if (mysqli_num_rows($producto) == 0) {
+            $producto = mysqli_query($conexion, "SELECT * FROM bariadas WHERE id = $id_producto");
+        }
+        if (mysqli_num_rows($producto) == 0) {
+            $producto = mysqli_query($conexion, "SELECT * FROM alitas WHERE id = $id_producto");
+        }
+
+
+
+
+
+
         // Fetch the product data and calculate the price
         $result = mysqli_fetch_assoc($producto);
         $precio = $result['precio'];

@@ -167,7 +167,7 @@ if (empty($_SESSION['active'])) {
                                     <li class="nav-item">
                                         <a href="bariadas.php" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Bebidas bariadas</p>
+                                            <p>Bebidas Variadas</p>
                                         </a>
                                     </li>
 

@@ -3,7 +3,7 @@ session_start();
 if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
     require_once "../conexion.php";
     $id_user = $_SESSION['idUser'];
-    $query = mysqli_query($conexion, "SELECT dp.id, dp.nombre, dp.precio, dp.cantidad, p.estado AS estado_pedido FROM detalle_pedidos dp INNER JOIN pedidos p ON dp.id_pedido = p.id;");
+    $query = mysqli_query($conexion, "SELECT dp.id, dp.nombre, dp.precio, dp.cantidad, p.estado, p.num_mesa AS estado_pedido FROM detalle_pedidos dp INNER JOIN pedidos p ON dp.id_pedido = p.id;");
     include_once "includes/header.php";
 ?>
     <div class="card">
@@ -19,6 +19,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                             <th>Nombre</th>
                             <th>precio</th>
                             <th>Cantidad</th>
+                            <th>Mesa</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -31,6 +32,7 @@ if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
                                 <td><?php echo $row['precio']; ?></td>
                                 <td><?php echo $row['cantidad']; ?></td>
                                 <td><?php echo $row['estado_pedido']; ?></td>
+                                <td><?php echo $row['estado']; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
